@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root
+{
+  height: 100%;
+  width: 100%;
+}
+
+html, body
+{
+  height: 100%;
+  background-color: #FFCDB2;
+}
+
+.container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #FFCDB2;
+}
+
+h1
+{
+  font-size: 60px;
+  margin-bottom: 24px;
+  color: #E5989B;
+  font-family: "Open Sans";
+}
+
+h2
+{
+  font-size: 72px;
+  color: #E5989B;
+  font-family: "Source Code Pro";
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #E5989B;
+  width: 0;
+  max-width: fit-content;
+  animation: typing 2s steps(7) forwards, blink 1s step-end infinite;
+}
+
+button
+{
+  padding: 16px 120px;
+  font-size: 36px;
+  font-family: "Open Sans";
+  background-color: #B5828C;
+  color: #FFCDB2;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover
+{
+  background-color: #E5989B;
+}
+
+@keyframes typing
+{
+  from { width: 0; }
+  to { width: 7ch; }
+}
+
+@keyframes blink
+{
+  50% { border-color: transparent; }
+}
