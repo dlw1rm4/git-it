@@ -8,12 +8,19 @@
     "build": "tsc -b && vite build",
     "predeploy": "npm run build",
     "lint": "eslint .",
+<<<<<<< HEAD
     "deploy": "gh-pages -d dist",
     "preview": "vite preview"
+=======
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+>>>>>>> kaitlyn-index
   },
   "dependencies": {
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
