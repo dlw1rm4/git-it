@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+.lessons-page 
+{
+    background-color: #ffcdb2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo 
+{
+    align-self: flex-start;
+    color: #B5828C;
+    font-family: "Source Code Pro";
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.lessons-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.header-card
+{
+    background: white;
+    border-radius: 16px;
+    padding: 24px 48px;
+    box-shadow:-8px 8px 0px #E5989B;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0s;
+}
+
+.header-card h1
+{
+    font-family: "Source Code Pro";
+    color: #B5828C;
+    font-size: 36px;
+    margin: 0;
+}
+
+.arrow
+{
+    font-size: 200px;
+    color: white;
+    margin: 75px 0;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.lesson-card
+{
+    background: #FFB4A2;
+    border-radius: 16px;
+    width: 300px;
+    overflow: hidden;
+    box-shadow: -8px 8px 0px #E5989B;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 1s;
+}
+
+.lesson-card-header
+{
+    background: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-family: "Source Code Pro";
+    color: #B5828C;
+    font-size: 18px;
+}
+
+.lesson-card-body
+{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.lesson-title
+{
+    font-family: "Source Code Pro";
+    color: #B5828C;
+    font-size: 16px;
+    margin: 0;
+}
+
+.progress-bar 
+{
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+}
+
+.progress-fill
+{
+    height: 6px;
+    background: white;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.lesson-card-body button
+{
+    background: #B5828C;
+    color: white;
+    border: none;
+    padding: 10px 48px;
+    border-radius: 8px;
+    font-family: "Source Code Pro";
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.lesson-card-body button:hover{
+    background: #E5989B;
+}
+
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
