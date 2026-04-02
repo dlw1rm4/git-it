@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+
+.disclaimer-page 
+{
+    background-color: #ffcdb2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #FFCDB2;
+}
+
+.logo 
+{
+    align-self: flex-start;
+    color: #B5828C;
+    font-family: "Source Code Pro";
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+button
+{
+  padding: 16px 120px;
+  font-size: 36px;
+  font-family: "Open Sans";
+  background-color: #B5828C;
+  color: #FFCDB2;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover
+{
+  background-color: #E5989B;
+}
