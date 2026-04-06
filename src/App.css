@@ -52,13 +52,15 @@ h2
 
 button
 {
-  padding: 16px 120px;
+  width: 240px;
+  height: 70px;
   font-size: 36px;
   font-family: "Open Sans";
   background-color: #B5828C;
   color: #FFCDB2;
   border: none;
   border-radius: 20px;
+  text-align: center;
   cursor: pointer;
 }
 
