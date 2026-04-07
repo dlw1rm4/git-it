@@ -1,6 +1,8 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Disclaimer from './pages/disclaimer'
 import Lessons from './pages/lessons'
+import Register from './pages/register'
+import Login from './pages/login'
 import './App.css'
 
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
       } />
       <Route path = "/disclaimer" element={<Disclaimer />} />
       <Route path = "/lessons" element={<Lessons />} />
+      <Route path = "/register" element={<Register />} />
+      <Route path = "/login" element={<Login />} />
     </Routes>
   )
 }

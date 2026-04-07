@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+.logo 
+{
+    align-self: flex-start;
+    color: #B5828C;
+    font-family: "Source Code Pro";
+    font-size: 32px;
+    margin-bottom: 40px;
+}
