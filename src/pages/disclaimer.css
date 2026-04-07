@@ -21,13 +21,32 @@
   background-color: #FFCDB2;
 }
 
+.logo-wrapper
+{
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  height: 60px;
+}
+
+.logo-icon
+{
+  width: 40px;
+  height: auto;
+  position: relative;
+  top: 2px;
+}
+
 .logo 
 {
-    align-self: flex-start;
     color: #B5828C;
     font-family: "Source Code Pro";
     font-size: 32px;
-    margin-bottom: 40px;
+    margin: 0;
+    line-height: 1;
+    padding-top: 12px;
 }
 
 .pop-up-box-container
@@ -54,7 +73,7 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     width: 100%;
-    min-height: 400px;
+    height: 400px;
     flex-direction: column;
     padding: 40px;
     display: flex;
