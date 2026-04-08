@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+.logo-wrapper
+{
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  height: 60px;
+}
+
+.logo-icon
+{
+  width: 40px;
+  height: auto;
+  position: relative;
+  top: 2px;
+}
+
+.logo 
+{
+    color: #B5828C;
+    font-family: "Source Code Pro";
+    font-size: 32px;
+    margin: 0;
+    line-height: 1;
+    padding-top: 12px;
+}
+
+.login-page 
+{
+    background-color: #ffcdb2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #FFCDB2;
+}
+
+.login-container
+{
+    width: 90%;
+    max-width: 800px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.login-header
+{
+    background: #f5f5f5;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-box
+{
+    background: white;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    width: 800px;
+    height: 400px;
+    flex-direction: column;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "Source Code Pro";
+    box-sizing: border-box;
+}
+
+.red-dot
+{
+  height: 20px;
+  width: 20px;
+  background: #FF5E5E;
+  border-radius: 50%;
+  position: absolute;
+  left: 20px;
+}
+
+.header-text
+{
+  font-family: "Source Code Pro";
+  color: #B5828C;
+  font-size: 36px;
+}
+
+.box-text
+{
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 1.4;
+  font-size: 28px;
+  color: #E5989B;
+  margin-bottom: 2px;
+}
+
+.username-input
+{
+    width: 240px;
+    height: 70px;
+    padding: 12px 20px;
+    margin: 20px 0;
+
+    border-radius: 16px;
+    background-color: #f2f2f2;
+
+    text-align: center;
+    color: #E5989B;
+    font-family: "Source Code Pro";
+    font-size: 18px;
+
+    border: none;
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.username-input:focus
+{
+    background-color: #dddddd;
+}
+
+.password-input
+{
+    width: 240px;
+    height: 70px;
+    padding: 12px 20px;
+    margin: 20px 0;
+
+    border-radius: 16px;
+    background-color: #f2f2f2;
+
+    text-align: center;
+    color: #E5989B;
+    font-family: "Source Code Pro";
+    font-size: 18px;
+
+    border: none;
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.password-input:focus
+{
+    background-color: #dddddd;
+}
+
+.button-group
+{
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  width: 100%;
+  justify-content: center;
+}
+
+.button-group button
+{
+  font-size: 24px;
+  color: white;
+  margin-top: 14px;
+  margin-bottom: 28px;
+}
+
+.login-btn
+{
+  background-color: #9DD66C;
+  color: white;
+}
+
+.login-btn:hover
+{
+  background-color: #6f984a;
+}
+

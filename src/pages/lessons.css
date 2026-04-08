@@ -12,7 +12,7 @@
 
 .logo 
 {
-    align-self: flex-start;
+    
     color: #B5828C;
     font-family: "Source Code Pro";
     font-size: 32px;
@@ -116,7 +116,8 @@
     background: #B5828C;
     color: white;
     border: none;
-    padding: 10px 48px;
+    height: 40px;
+    width: 140px;
     border-radius: 8px;
     font-family: "Source Code Pro";
     font-size: 16px;
