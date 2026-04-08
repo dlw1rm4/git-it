@@ -19,8 +19,7 @@ export default function Lessons() {
                 <img src={logoIcon} alt="logo" className="logo-icon"></img>
                 <span className="logo">git-it!</span>
             </div>
-
-            <div className="lessons-container">
+            <div className="container">
                 <div className="header-card">
                     <h1>Git Started!</h1>
                 </div>
