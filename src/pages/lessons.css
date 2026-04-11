@@ -10,13 +10,32 @@
     padding: 20px;
 }
 
+.logo-wrapper
+{
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  height: 60px;
+}
+
+.logo-icon
+{
+  width: 40px;
+  height: auto;
+  position: relative;
+  top: 2px;
+}
+
 .logo 
 {
-    align-self: flex-start;
     color: #B5828C;
     font-family: "Source Code Pro";
     font-size: 32px;
-    margin-bottom: 40px;
+    margin: 0;
+    line-height: 1;
+    padding-top: 12px;
 }
 
 .lessons-container

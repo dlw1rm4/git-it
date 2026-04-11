@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './lessons.css'
+import logoIcon from '../images/logo.png'
 
 const lessons = [
     {
@@ -14,9 +15,11 @@ export default function Lessons() {
 
     return (
         <div className="lessons-page">
-            <p className="logo">git-it!</p>
-
-            <div className="lessons-container">
+            <div className="logo-wrapper">
+                <img src={logoIcon} alt="logo" className="logo-icon"></img>
+                <span className="logo">git-it!</span>
+            </div>
+            <div className="container">
                 <div className="header-card">
                     <h1>Git Started!</h1>
                 </div>

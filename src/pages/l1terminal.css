@@ -1,26 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
-
-.disclaimer-page 
-{
-    background-color: #ffcdb2;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.container
-{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background-color: #FFCDB2;
-}
-
 .logo-wrapper
 {
   display: flex;
@@ -49,15 +28,40 @@
     padding-top: 12px;
 }
 
-.pop-up-box-container
+.l1-terminal-page 
 {
-    width: 90%;
-    max-width: 800px;
-    border-radius: 16px;
+    background-color: #ffcdb2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    position: relative;
     overflow: hidden;
 }
 
-.pop-up-box-header
+.container
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #FFCDB2;
+}
+
+.l1box-container
+{
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 16px;
+    overflow: hidden;
+
+    position: relative;
+    z-index: 2;
+}
+
+.l1box-header
 {
     background: #f5f5f5;
     padding: 16px 20px;
@@ -65,15 +69,17 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    height: 55px;
+    z-index: 2;
 }
 
-.pop-up-box
+.l1box
 {
     background: white;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     width: 100%;
-    height: 400px;
+    height: 550px;
     flex-direction: column;
     padding: 40px;
     display: flex;
@@ -82,6 +88,17 @@
     text-align: center;
     font-family: "Source Code Pro";
     box-sizing: border-box;
+}
+
+.terminal 
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #1E1E1E;
+  z-index: 0; 
 }
 
 .red-dot-btn button
@@ -101,73 +118,4 @@
   background-color: #ba4141;
 } 
 
-.header-text
-{
-  font-family: "Source Code Pro";
-  color: #B5828C;
-  font-size: 36px;
-}
 
-.box-text
-{
-  width: 100%;
-  word-wrap: break-word;
-  line-height: 1.4;
-  font-size: 28px;
-  color: #E5989B;
-  margin-bottom: 28px;
-}
-
-.button-group
-{
-  display: flex;
-  flex-direction: row;
-  gap: 80px;
-  width: 100%;
-  justify-content: center;
-}
-
-.button-group button
-{
-  font-size: 24px;
-  color: white;
-  margin-bottom: 28px;
-}
-
-.btn-sure
-{
-  background-color: #9DD66C;
-  color: white;
-}
-
-.btn-sure:hover
-{
-  background-color: #6f984a;
-}
-
-.btn-nah
-{
-  background-color: #FF5E5E;
-  color: white;
-}
-
-.btn-nah:hover
-{
-  background-color: #ba4141;
-} 
-
-.login-link
-{
-  text-decoration: underline;
-  line-height: 1.4;
-  font-size: 28px;
-  color: #E5989B;
-  cursor: pointer;
-  margin-bottom: 28px;
-}
-
-.login-link:hover
-{
-  text-decoration: underline;
-  font-weight: bold;
-}

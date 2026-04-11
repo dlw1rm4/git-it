@@ -1,12 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
+.logo-wrapper
+{
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  height: 60px;
+}
+
+.logo-icon
+{
+  width: 40px;
+  height: auto;
+  position: relative;
+  top: 2px;
+}
+
 .logo 
 {
-    align-self: flex-start;
     color: #B5828C;
     font-family: "Source Code Pro";
     font-size: 32px;
-    margin-bottom: 20px;
+    margin: 0;
+    line-height: 1;
+    padding-top: 12px;
 }
 
 .register-page 
