@@ -37,7 +37,7 @@
     align-items: center;
     padding: 20px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .container
@@ -48,17 +48,22 @@
   justify-content: center;
   height: 100%;
   background-color: #FFCDB2;
+  flex: 1;
+  min-height: 600px;
 }
 
 .l1box-container
 {
-    width: 90%;
+    width: 95%;
     max-width: 1000px;
+    height: 555px;
+    margin: 20px auto;
     border-radius: 16px;
     overflow: hidden;
 
     position: relative;
     z-index: 2;
+    display: block;
 }
 
 .l1box-header
@@ -77,17 +82,58 @@
 {
     background: white;
     border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
-    width: 100%;
-    height: 550px;
+    width: 50%;
+    height: 500px;
     flex-direction: column;
     padding: 40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
     font-family: "Source Code Pro";
     box-sizing: border-box;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.l1box-content::-webkit-scrollbar
+{
+    width: 8px;
+}
+
+.l1box-content::-webkit-scrollbar-track
+{
+    background: #f5f5f5;
+    border-radius: 0 0 16px 0;
+}
+
+.l1box-content::-webkit-scrollbar-thumb 
+{
+    background: #E5989B; 
+    border-radius: 10px;
+}
+
+.l1box-content::-webkit-scrollbar-thumb:hover 
+{
+    background: #B5828C;
+}
+
+.l1box-content 
+{
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 40px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto; 
+    min-height: 0;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .terminal 
@@ -118,4 +164,92 @@
   background-color: #ba4141;
 } 
 
+.l-title
+{
+    margin-top: 0;
+    font-family: "Source Code Pro";
+    color: #B5828C;
+    font-size: 36px;
+    flex-direction: column;
+    line-height: 1.4;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 
+.l-text
+{
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 1.4;
+  font-size: 24px;
+  color: #E5989B;
+  margin-bottom: 28px;
+  white-space: pre-wrap;
+}
+
+.next-btn, .back-btn
+{
+    position: relative;
+    z-index: 10;
+    
+    background: none;
+    border: none;
+    padding: 0;
+    
+    color: #B5828C;
+    font-family: "Source Code Pro"; 
+    font-size: 40px; 
+    
+    cursor: pointer;
+}
+
+.next-btn
+{
+    margin-left: auto;
+}
+
+button.next-btn 
+{
+    color: #E5989B;
+}
+
+button.next-btn:hover
+{
+    color: #B5828C;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+button.back-btn
+{
+    color: #E5989B;
+}
+
+button.back-btn:hover
+{
+    color: #B5828C;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.button-row 
+{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    margin-top: 40px; 
+    padding-bottom: 20px;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.spacer, .back-btn, .next-btn 
+{
+    min-width: 50px; 
+    display: flex;
+    justify-content: center;
+}
