@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 export default function Lesson1() {
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = useState(0)
+    const [terminalInput, setTerminalInput] = useState('');
+    const [terminalLines, setTerminalLines] = useState(['Welcome to git-it terminal!', 'Type a command to begin.'])
 
     const pages = [
         {
