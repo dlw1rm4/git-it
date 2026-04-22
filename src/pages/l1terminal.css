@@ -145,6 +145,18 @@
   height: 100%;
   background-color: #1E1E1E;
   z-index: 0; 
+  align-items: flex-start;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-line, .terminal-input-line 
+{
+    margin-left: 0;
+    padding-left: 0;
+    text-align: left;
+    width: 100%;
 }
 
 .red-dot-btn button
@@ -182,7 +194,7 @@
   width: 100%;
   word-wrap: break-word;
   line-height: 1.4;
-  font-size: 24px;
+  font-size: 20px;
   color: #E5989B;
   margin-bottom: 28px;
   white-space: pre-wrap;
