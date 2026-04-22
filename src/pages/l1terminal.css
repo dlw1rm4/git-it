@@ -136,27 +136,58 @@
     justify-content: flex-start;
 }
 
-.terminal 
-{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background-color: #1E1E1E;
-  z-index: 0; 
-  align-items: flex-start;
-  padding-left: 10px;
-  display: flex;
-  flex-direction: column;
+.terminal {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 50%;
+    height: calc(100% - 55px);
+    background-color: #1E1E1E;
+    z-index: 1; 
+
+    /* FORCING LEFT ALIGNMENT */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;  
+    justify-content: flex-start !important;
+    
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    font-family: "Source Code Pro", monospace;
 }
 
-.terminal-line, .terminal-input-line 
-{
-    margin-left: 0;
-    padding-left: 0;
-    text-align: left;
+.terminal-line {
     width: 100%;
+    text-align: left !important;
+    color: #cccccc; 
+    margin-bottom: 4px;
+    display: block; 
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;           
+    color: #ffffff;         
+    font-family: "Source Code Pro", monospace;
+    font-size: 18px;
+    flex: 1;                 
+    padding: 10px 5px;      
+    caret-color: #ffffff;   
+}
+
+.prompt {
+    color: #ffffff;
+    font-weight: bold;
+    padding-left: 5px;
 }
 
 .red-dot-btn button

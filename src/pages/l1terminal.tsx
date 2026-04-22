@@ -18,7 +18,7 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1A: Create a repository",
-            text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type 'git init' in the terminal."
+            text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type 'git init' in the terminal.\n\nOnce you see \"Initialized empty Git repository in /project/.git/\" move onto the next page!"
         },
         {
             title: "Commit 1: What is Git?",
@@ -41,6 +41,11 @@ export default function Lesson1() {
             const newLines = [...terminalLines, `> ${input}`];
 
             switch (command) {
+                case 'clear':
+                case 'cls':
+                    setTerminalLines([]); 
+                    setTerminalInput(''); 
+                    return; 
                 case 'echo':
                     response = argument;
                     break;
