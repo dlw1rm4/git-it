@@ -10,6 +10,7 @@ export default function Lesson1() {
     const [pageIndex, setPageIndex] = useState(0)
     const [terminalInput, setTerminalInput] = useState('');
     const [terminalLines, setTerminalLines] = useState(['Welcome to git-it terminal!', 'Type a command to begin.'])
+    const [currentPath, setCurrentPath] = useState(['root']);
 
     const pages = [
         {
@@ -17,68 +18,92 @@ export default function Lesson1() {
             text: "According to the Wikipedia, Git is a distributed version control software system that is capable of managing versions of source code or data. It is often used to control source code by programmers who are developing software collaboratively.\n\nIf you understood that, congrats! You're smarter than me :D !\n\nIf not, don't worry! Say you're playing a video game and reach a difficult dungeon. There's a good chance you might die, so before you enter the dungeon, you save your game. Git is basically a saving point for your project, and GitHub stores everything we do in our Git project online."
         },
         {
-            title: "Commit 1A: Create a repository",
+            title: "Commit 1A: Create a Repository",
             text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type 'git init' in the terminal.\n\nOnce you see \"Initialized empty Git repository in /project/.git/\" move onto the next page!"
         },
         {
-            title: "Commit 1: What is Git?",
-            text: "test2"
+            title: "Commit 1B: Terminal Commands",
+            text: "Now that you know how to make a repository, we should learn some basic terminal commands to navigate and interact with our project.\n\nLet's try clearing the terminal first. Type 'clear' or 'cls' to clear the terminal.\n\nNow, let's have a look at the files in our folder. Type 'ls' to see the files and folders in our current directory.\n\nYou can open any of the folders in our current directory by typing 'cd <folder_name>'. Try it with 'cd images'.\n\nYou can go back to the root director by typing 'cd ..'. Type that and open the src folder next!\n\nTo read the contents of a file, you want to type 'cat <filename>'. Try it by opening the file in the src folder. You will know you're successful when you see 'console.log(\"Hello Git!\");'.\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
+
         }
     ]
 
-    const MOCK_FILES = {
-        'README.md': 'Welcome to git-it! This is a tutorial for Git.',
-        'hello.txt': 'Hello, world! You found a secret file.',
-    };
+    const MOCK_FS = {
+            name: 'root',
+            type: 'folder',
+            children: {
+                'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
+                'src': {
+                type: 'folder',
+                children: {
+                    'app.js': { type: 'file', content: 'console.log("Hello Git!");' }
+                }
+                },
+                'images': {
+                type: 'folder',
+                children: {
+                    'logo.png': { type: 'file', content: '[Binary Data]' }
+                }
+                }
+            }
+        };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             const input = terminalInput.trim();
-            const [command, ...args] = input.split(' '); 
-            const argument = args.join(' '); 
+            const [command, ...args] = input.split(' ');
+            const target = args[0];
             
             let response = '';
-            const newLines = [...terminalLines, `> ${input}`];
+            let newLines = [...terminalLines, `> ${input}`];
+
+            let currentDir: any = MOCK_FS;
+            for (const segment of currentPath.slice(1)) {
+                currentDir = currentDir.children[segment];
+            }
 
             switch (command) {
                 case 'clear':
                 case 'cls':
-                    setTerminalLines([]); 
-                    setTerminalInput(''); 
+                    setTerminalLines([]);
+                    setTerminalInput('');
                     return; 
-                case 'echo':
-                    response = argument;
-                    break;
 
-                case 'cat':
-                    if (!argument) {
-                        response = 'cat: usage: cat <filename>';
-                    } else if (MOCK_FILES[argument as keyof typeof MOCK_FILES]) {
-                        response = MOCK_FILES[argument as keyof typeof MOCK_FILES];
-                    } else {
-                        response = `cat: ${argument}: No such file or directory`;
-                    }
+                case 'ls':
+                    response = Object.keys(currentDir.children).join('    ');
                     break;
 
                 case 'cd':
-                    if (!argument || argument === '.') {
-                        response = '';
-                    } else if (argument === '..') {
-                        response = 'Cannot go back; you are in the root directory.';
+                    if (!target || target === '.') break;
+                    if (target === '..') {
+                        if (currentPath.length > 1) {
+                            setCurrentPath(prev => prev.slice(0, -1));
+                        }
+                    } else if (currentDir.children?.[target]?.type === 'folder') {
+                        setCurrentPath(prev => [...prev, target]);
                     } else {
-                        response = `cd: no such directory: ${argument}`;
+                        response = `cd: no such directory: ${target}`;
                     }
                     break;
 
-                case 'ls':
-                    response = Object.keys(MOCK_FILES).join('    ');
+                case 'cat':
+                    const file = currentDir.children?.[target];
+                    if (file?.type === 'file') {
+                        response = file.content;
+                    } else if (file?.type === 'folder') {
+                        response = `cat: ${target}: Is a directory`;
+                    } else {
+                        response = `cat: ${target}: No such file`;
+                    }
                     break;
 
                 case 'git':
                     if (args[0] === 'init') {
                         response = 'Initialized empty Git repository in /project/.git/';
+                    } else if (!args[0]) {
+                        response = 'usage: git <command> [<args>]';
                     } else {
-                        response = `git: '${args[0]}' is not a git command. See 'git --help'.`;
+                        response = `git: '${args[0]}' is not a git command.`;
                     }
                     break;
 
@@ -88,11 +113,8 @@ export default function Lesson1() {
                 default:
                     response = `command not found: ${command}`;
             }
-
-            if (response) {
-                newLines.push(response);
-            }
-
+            
+            if (response) newLines.push(response);
             setTerminalLines(newLines);
             setTerminalInput('');
         }
