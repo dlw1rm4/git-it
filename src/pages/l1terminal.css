@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&display=swap');
 
 .logo-wrapper
 {
@@ -154,7 +155,7 @@
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
-    font-family: "Source Code Pro", monospace;
+    font-family: "Google Sans Code", monospace;
 }
 
 .terminal-line {
@@ -163,6 +164,7 @@
     color: #cccccc; 
     margin-bottom: 4px;
     display: block; 
+    font-family: "Google Sans Code", monospace;
 }
 
 .terminal-input-line {
@@ -170,6 +172,7 @@
     align-items: center;
     width: 100%;
     background: transparent;
+    font-family: "Google Sans Code", monospace;
 }
 
 .terminal-input {
@@ -182,6 +185,7 @@
     flex: 1;                 
     padding: 10px 5px;      
     caret-color: #ffffff;   
+    font-family: "Google Sans Code", monospace;
 }
 
 .prompt {
