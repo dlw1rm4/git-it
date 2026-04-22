@@ -3,6 +3,7 @@ import Disclaimer from './pages/disclaimer'
 import Lessons from './pages/lessons'
 import Register from './pages/register'
 import Login from './pages/login'
+import Lesson1 from './pages/l1terminal'
 import './App.css'
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
       <Route path = "/lessons" element={<Lessons />} />
       <Route path = "/register" element={<Register />} />
       <Route path = "/login" element={<Login />} />
+      <Route path = "/lesson1" element={<Lesson1 />} />
     </Routes>
   )
 }

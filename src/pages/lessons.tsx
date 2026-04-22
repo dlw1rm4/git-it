@@ -39,7 +39,7 @@ export default function Lessons() {
                                     style={{ width: '${lesson.progress}%' }}
                                 />
                         </div>
-                        <button onClick={() => navigate('/terminal')}>start</button>
+                        <button onClick={() => navigate('/lesson1')}>start</button>
                         </div>
                     </div>
                 ))}
