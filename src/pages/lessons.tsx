@@ -7,40 +7,60 @@ const lessons = [
         id: 1,
         commit: 'Commit 1',
         title: 'What is Git?',
-        progress:0,
+        progress: 0,
+    } , {
+        id: 2,
+        commit: 'Commit 2',
+        title: 'What is a branch?',
+        progress: 0,
     }
 ]
+
 export default function Lessons() {
     const navigate = useNavigate()
 
     return (
         <div className="lessons-page">
             <div className="logo-wrapper">
-                <img src={logoIcon} alt="logo" className="logo-icon"></img>
+                <img src={logoIcon} alt="logo" className="logo-icon" />
                 <span className="logo">git-it!</span>
             </div>
-            <div className="container">
+            <div className="lessons-container">
                 <div className="header-card">
                     <h1>Git Started!</h1>
                 </div>
 
-                <div className="arrow">↓</div>
+                <div className="arrow" style={{ animationDelay: '0.5s' }}>↓</div>
 
-                {lessons.map((lesson) => (
-                    <div className="lesson-card" key={lesson.id}>
-                        <div className="lesson-card-header">
-                            <p>{lesson.commit}</p>
+                {lessons.map((lesson, index) => (
+                    <div key={lesson.id}>
+                        <div
+                            className="lesson-card"
+                            style={{ animationDelay: `${1 + index * 1}s` }}
+                        >
+                            <div className="lesson-card-header">
+                                <p>{lesson.commit}</p>
+                            </div>
+                            <div className="lesson-card-body">
+                                <p className="lesson-title">{lesson.title}</p>
+                                <div className="progress-bar">
+                                    <div
+                                        className="progress-fill"
+                                        style={{ width: `${lesson.progress}%` }}
+                                    />
+                                </div>
+                                <button onClick={() => navigate(`/lesson${lesson.id}`)}>start</button>
+                            </div>
                         </div>
-                        <div className="lesson-card-body">
-                            <p className="lesson-title">{lesson.title}</p>
-                            <div className="progress-bar">
-                                <div
-                                    className="progress-fill"
-                                    style={{ width: '${lesson.progress}%' }}
-                                />
-                        </div>
-                        <button onClick={() => navigate('/lesson1')}>start</button>
-                        </div>
+
+                        {index < lessons.length - 1 && (
+                            <div
+                                className="arrow"
+                                style={{ animationDelay: `${1 + index * 1}s` }}
+                            >
+                                ↓
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

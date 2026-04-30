@@ -4,6 +4,7 @@ import Lessons from './pages/lessons'
 import Register from './pages/register'
 import Login from './pages/login'
 import Lesson1 from './pages/l1terminal'
+import Lesson2 from './pages/l2terminal'
 import './App.css'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
       <Route path = "/register" element={<Register />} />
       <Route path = "/login" element={<Login />} />
       <Route path = "/lesson1" element={<Lesson1 />} />
+      <Route path = "/lesson2" element={<Lesson2 />} />
     </Routes>
   )
 }
