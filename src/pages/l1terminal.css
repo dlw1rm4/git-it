@@ -184,7 +184,7 @@
     font-family: "Source Code Pro", monospace;
     font-size: 18px;
     flex: 1;                 
-    padding: 10px 5px;      
+    padding: 0 5px;      
     caret-color: #ffffff;   
     font-family: "Google Sans Code", monospace;
 }
@@ -192,7 +192,8 @@
 .prompt {
     color: #ffffff;
     font-weight: bold;
-    padding-left: 5px;
+    font-size: 18px;
+    line-height: 1;
 }
 
 .red-dot-btn button
