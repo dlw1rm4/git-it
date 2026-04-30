@@ -2,39 +2,41 @@
 
 *
 {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #root
 {
-  min-height: 100%;
-  width: 100%;
+    min-height: 100%;
+    width: 100%;
+    background-color: #FFCDB2;
 }
 
 html, body
 {
-  height: 100%;
-  background-color: #FFCDB2;
+    height: 100%;
+    background-color: #FFCDB2;
+    overscroll-behavior: none;
 }
 
 .container
 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background-color: #FFCDB2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #FFCDB2;
 }
 
 h1
 {
-  font-size: 60px;
-  margin-bottom: 24px;
-  color: #E5989B;
-  font-family: "Open Sans";
+    font-size: 60px;
+    margin-bottom: 24px;
+    color: #E5989B;
+    font-family: "Open Sans";
 }
 
 h2
@@ -67,6 +69,27 @@ button
 button:hover
 {
   background-color: #E5989B;
+}
+
+::-webkit-scrollbar 
+{
+  width: 12px;
+}
+
+::-webkit-scrollbar-track 
+{
+  background: #FFCDB2;
+}
+
+::-webkit-scrollbar-thumb 
+{
+  background: #E5989B; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover 
+{
+  background: #B5828C; 
 }
 
 @keyframes typing
