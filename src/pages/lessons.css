@@ -4,29 +4,29 @@
 {
     background-color: #ffcdb2;
     min-height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
 }
 
-.container
+.lessons-container
 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background-color: #FFCDB2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #FFCDB2;
+    padding-top: 100px;
+    padding-bottom: 50px;
 }
 
 .logo-wrapper
 {
   display: flex;
-  align-self: flex-start;
   align-items: center;
   gap: 12px;
-  justify-content: center;
   height: 60px;
   padding-bottom: 10px;
 }
@@ -56,8 +56,8 @@
     padding: 24px 48px;
     box-shadow:-8px 8px 0px #E5989B;
     opacity: 0;
+    align-self: center;
     animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0s;
 }
 
 .header-card h1
@@ -73,9 +73,9 @@
     font-size: 200px;
     color: white;
     margin: 75px 0;
+    align-self: center;
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.5s;
 }
 
 .lesson-card
@@ -83,11 +83,11 @@
     background: #FFB4A2;
     border-radius: 16px;
     width: 300px;
+    align-self: center;
     overflow: hidden;
     box-shadow: -8px 8px 0px #E5989B;
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
-    animation-delay: 1s;
 }
 
 .lesson-card-header
