@@ -5,37 +5,28 @@ import { useState } from 'react'
 import confetti from 'canvas-confetti'; 
 import { useEffect } from 'react';
 
-export default function Lesson1() {
+export default function Lesson3() {
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = useState(0)
     const [terminalInput, setTerminalInput] = useState('');
     const [terminalLines, setTerminalLines] = useState(['Welcome to git-it terminal!', 'Type a command to begin.'])
     const [currentPath, setCurrentPath] = useState(['root']);
+    const [branches, setBranches] = useState(['main']);
+    const [currentBranch, setCurrentBranch] = useState('main');
 
     const pages = [
         {
-            title: "Commit 1: What is Git?",
-            text: "According to Wikipedia, Git is a distributed version control software system that is capable of managing versions of source code or data. It is often used to control source code by programmers who are developing software collaboratively.\n\nIf you understood that, congrats! You're smarter than me :D !\n\nIf not, don't worry! Maybe this explanation will help you:\nSay you're playing a video game and reach a difficult dungeon. There's a good chance you might die, so before you enter the dungeon, you save your game. Git is basically a saving point for your project, and GitHub stores everything we do in our Git project online."
+            title: "Commit 2: What are branches?",
+            text: "Branches are super important in Git. They allow you to work on your own copy of the main code so that changes don't conflict and mess up your entire program. When you're making changes to your project's code, it's important that you do so in your own branch, especially when you're in a team. Can you think of why?"
         },
         {
-            title: "Commit 1A: Create a Repository",
-            text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type 'git init' in the terminal.\n\nOnce you see \"Initialized empty Git repository in /project/.git/\" you’ll know you successfully created a local repository.\n\nBut, what does the word ‘local’ mean? It just means the data only exists on your device! So, the repository you created in the terminal only exists on your end.\n\nLet’s try another way of creating a repository. What if you created a repository on GitHub and want to access it through an IDE like VS Code?\n\nThis is a really simple process. If you go to your repository and find the green button that says ‘Code.’ Click on it, and grab the HTTPS link. Once you copy that link, write ‘git clone <url>’ in the terminal.\n\nCongrats! You’ve successfully created a repository."
+            title: "Commit 2A: Create a Branch",
+            text: "To make your own branch, type 'git branch <branch_name>'. This will create a branch of your changes to the code.\n\nYou can also view what branch you're in by typing 'git branch'. The branch that is (left) starred is the branch you are in."
         },
         {
-            title: "Commit 1B: Repository States",
-            text: "Now that you know how to make a repository, you should know the basics of Git repository states.\n\nThere are three main areas:\n- Working directory\n- Staging area\n- Repository\n\nThe working directory is where you actually edit your files.\n\nThe staging area tells us what will be added into your next commit.\n\nThe repository is the permanent history of your code. \n\nFiles can also have different states:\n- Untracked: Git sees it but isn't tracking it yet\n- Staged: added to staging area, ready to commit \n- Committed: safely stored in the repository\n- Modified: tracked file changed since last commit, not yet staged\n- Ignored: explicitly excluded via .gitignore\n\nDon’t worry about how this applies to Git commands yet! We’ll get into it in a future lesson. In the meantime, just keep these in mind."
-        },
-        {
-            title: "Commit 1C: Terminal Commands Pt. 1",
-            text: "We should learn some basic terminal commands to navigate and interact with our project.\n\nLet's try clearing the terminal first. Type 'clear' or 'cls' to clear the terminal.\n\nNow, let's have a look at the files in our folder. Type 'ls' to see the files and folders in our current directory.\n\nYou can open any of the folders in our current directory by typing 'cd <folder_name>'. Try it with 'cd images'.\n\nYou can go back to the root director by typing 'cd ..'. Type that and open the src folder next!\n\nTo read the contents of a file, you want to type 'cat <filename>'. Try it by opening the file in the src folder. You will know you're successful when you see 'console.log(\"Hello Git!\");'.\n\nLet’s do one more. Try writing ‘touch <file_name>’. This creates an empty file in your current folder.\n\nYou learned five different terminal commands! Now, let’s ramp it up and learn five more in the next page."
-        },
-        {
-            title: "Commit 1D: Terminal Commands Pt. 2",
-            text: "In the previous page, we learned to create an empty file. Now, what if we want to remove it? All you need to do is type ‘rm <file_name>’. Now, go check to see if it got removed (you can do this by typing ‘ls’).\n\nWhat if we want to move our file to another location? Simple, type ‘mv <file_name> <address>’. You can also rename your file this way by typing ‘mv <current_file_name> <new_file_name>’.\n\nAnother helpful command is ‘echo <string>’. Try typing ‘echo “Hello world!”’ What do you see? Do you see the terminal “echoing” it back? If so, great! Now, you can add this string to a file by doing ‘echo “string” > <file_name>.’ Oftentimes, the file is a .txt file. Let’s try it by typing ‘echo “hello world” > echofile.txt’. Afterwards, use the cat command on echofile.txt to see the contents!\n\nWe’ve learned to make files. We’ve learned to add stuff in our files. How do we make folders? All you need to do is type ‘mkdir <folder_name>’. Try it!\n\nTo delete a folder, do ‘rmdir <folder_name>’.\n\nCan you try using some of the commands together? Clear your terminal and create a new folder. Add a file in the folder and add contents into it. Check to see if you did it correctly by using the commands you learned in this lesson.\n\nOnce you feel like you got the hang of it, move onto the next page."
-        },
-        {
-            title: "Commit 1E: Conclusion",
-            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
+            title: "Commit 2B: Checkout a Branch",
+            text: "But, you're not on the branch yet! You need to 'checkout' the branch with 'git checkout <branch_name>'. Once you have successfully done so, congrats! You're on your branch. Press 'FINISH' whenever you are ready."
+
         }
     ]
 
@@ -109,15 +100,36 @@ export default function Lesson1() {
                     break;
 
                 case 'git':
-                    if (args[0] === 'init') {
+                    const subCommand = args[0];
+                    const branchName = args[1];
+
+                    if (subCommand === 'init') {
                         response = 'Initialized empty Git repository in /project/.git/';
-                    } else if (!args[0]) {
-                        response = 'usage: git <command> [<args>]';
-                    } else {
-                        response = `git: '${args[0]}' is not a git command.`;
+                    } 
+                    else if (subCommand === 'branch') {
+                        if (!branchName) {
+                            response = branches.map(b => (b === currentBranch ? `* ${b}` : `  ${b}`)).join('\n');
+                        } else {
+                            if (branches.includes(branchName)) {
+                                response = `fatal: A branch named '${branchName}' already exists.`;
+                            } else {
+                                setBranches(prev => [...prev, branchName]);
+                                response = '';
+                            }
+                        }
+                    } 
+                    else if (subCommand === 'checkout') {
+                        if (branches.includes(branchName)) {
+                            setCurrentBranch(branchName);
+                            response = `Switched to branch '${branchName}'`;
+                        } else {
+                            response = `error: pathspec '${branchName}' did not match any file(s) known to git`;
+                        }
+                    }
+                    else {
+                        response = `git: '${subCommand}' is not a git command.`;
                     }
                     break;
-
                 case '':
                     break;
 
@@ -201,7 +213,7 @@ export default function Lesson1() {
                             ))}
                         </div>
                         <div className="terminal-input-line">
-                            <span className="prompt">{'>'}</span>
+                            <span className="prompt">{currentPath[currentPath.length - 1]} ({currentBranch}) &gt;</span>
                             <input
                                 type="text"
                                 className="terminal-input"
