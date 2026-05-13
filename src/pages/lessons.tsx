@@ -13,6 +13,21 @@ const lessons = [
         commit: 'Commit 2',
         title: 'What is a branch?',
         progress: 0,
+    } , {
+        id: 3,
+        commit: 'Commit 3',
+        title: 'How do I add changes?',
+        progress: 0,
+    } , {
+        id: 4,
+        commit: 'Commit 4',
+        title: 'How do I merge to main?',
+        progress: 0,
+    } , {
+        id: 5,
+        commit: 'Commit 5',
+        title: 'How do I undo changes?',
+        progress: 0,
     }
 ]
 
