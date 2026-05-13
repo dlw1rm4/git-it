@@ -35,29 +35,19 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1E: Conclusion",
-            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
+            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls\n   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
         }
     ]
 
-    const MOCK_FS = {
-            name: 'root',
-            type: 'folder',
-            children: {
-                'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
-                'src': {
-                type: 'folder',
-                children: {
-                    'app.js': { type: 'file', content: 'console.log("Hello Git!");' }
-                }
-                },
-                'images': {
-                type: 'folder',
-                children: {
-                    'logo.png': { type: 'file', content: '[Binary Data]' }
-                }
-                }
-            }
-        };
+    const [fs, setFs] = useState({
+        name: 'root',
+        type: 'folder',
+        children: {
+            'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
+            'src': { type: 'folder', children: { 'app.js': { type: 'file', content: 'console.log("Hello Git!");' } } },
+            'images': { type: 'folder', children: { 'logo.png': { type: 'file', content: '[Binary Data]' } } }
+        }
+    });
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -68,7 +58,7 @@ export default function Lesson1() {
             let response = '';
             let newLines = [...terminalLines, `> ${input}`];
 
-            let currentDir: any = MOCK_FS;
+            let currentDir: any = fs;
             for (const segment of currentPath.slice(1)) {
                 currentDir = currentDir.children[segment];
             }
@@ -78,7 +68,7 @@ export default function Lesson1() {
                 case 'cls':
                     setTerminalLines([]);
                     setTerminalInput('');
-                    return; 
+                    return;
 
                 case 'ls':
                     response = Object.keys(currentDir.children).join('    ');
@@ -87,9 +77,7 @@ export default function Lesson1() {
                 case 'cd':
                     if (!target || target === '.') break;
                     if (target === '..') {
-                        if (currentPath.length > 1) {
-                            setCurrentPath(prev => prev.slice(0, -1));
-                        }
+                        if (currentPath.length > 1) setCurrentPath(prev => prev.slice(0, -1));
                     } else if (currentDir.children?.[target]?.type === 'folder') {
                         setCurrentPath(prev => [...prev, target]);
                     } else {
@@ -105,6 +93,103 @@ export default function Lesson1() {
                         response = `cat: ${target}: Is a directory`;
                     } else {
                         response = `cat: ${target}: No such file`;
+                    }
+                    break;
+
+                case 'touch':
+                    if (!target) { response = 'touch: missing filename'; break; }
+                    setFs(prev => {
+                        const updated = structuredClone(prev);
+                        let dir: any = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s];
+                        dir.children[target] = { type: 'file', content: '' };
+                        return updated;
+                    });
+                    break;
+
+                case 'rm':
+                    if (!target) { response = 'rm: missing filename'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `rm: ${target}: No such file`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: any = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+
+                case 'mkdir':
+                    if (!target) { response = 'mkdir: missing name'; break; }
+                    setFs(prev => {
+                        const updated = structuredClone(prev);
+                        let dir: any = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s];
+                        dir.children[target] = { type: 'folder', children: {} };
+                        return updated;
+                    });
+                    break;
+
+                case 'rmdir':
+                    if (!target) { response = 'rmdir: missing name'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `rmdir: ${target}: No such directory`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: any = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+
+                case 'mv': {
+                    const dest = args[1];
+                    if (!target || !dest) { response = 'mv: missing operand'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `mv: ${target}: No such file or directory`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: any = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            
+                            const moving = dir.children[target];
+                            const destNode = dir.children[dest];
+                            
+                            if (destNode?.type === 'folder') {
+                                // move INTO the folder, keep original name
+                                destNode.children[target] = moving;
+                            } else {
+                                // rename
+                                dir.children[dest] = moving;
+                            }
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+                }
+                case 'echo':
+                    const fullArgs = args.join(' ');
+                    const redirectIndex = fullArgs.indexOf('>');
+                    if (redirectIndex !== -1) {
+                        const content = fullArgs.slice(0, redirectIndex).trim().replace(/^"|"$/g, '');
+                        const filename = fullArgs.slice(redirectIndex + 1).trim();
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: any = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            dir.children[filename] = { type: 'file', content };
+                            return updated;
+                        });
+                    } else {
+                        response = fullArgs.replace(/^"|"$/g, '');
                     }
                     break;
 
