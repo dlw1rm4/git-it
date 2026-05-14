@@ -119,19 +119,45 @@ export default function Lesson2() {
                         response = 'Initialized empty Git repository in /project/.git/';
                     } 
                     else if (subCommand === 'branch') {
-                        if (!branchName) {
+                        const flag = args[1];       
+                        const targetBranch = args[2]; 
+
+                        if (!flag) {
                             response = branches.map(b => (b === currentBranch ? `* ${b}` : `  ${b}`)).join('\n');
-                        } else {
-                            if (branches.includes(branchName)) {
-                                response = `fatal: A branch named '${branchName}' already exists.`;
+                        } else if (flag === '-d' || flag === '-D') {
+                            if (!targetBranch) {
+                                response = `error: branch name required`;
+                            } else if (targetBranch === 'main') {
+                                response = `error: Cannot delete the branch 'main'.`;
+                            } else if (targetBranch === currentBranch) {
+                                response = `error: Cannot delete the branch '${targetBranch}' which you are currently on.`;
+                            } else if (!branches.includes(targetBranch)) {
+                                response = `error: branch '${targetBranch}' not found.`;
                             } else {
-                                setBranches(prev => [...prev, branchName]);
-                                response = '';
+                                setBranches(prev => prev.filter(b => b !== targetBranch));
+                                response = `Deleted branch ${targetBranch}.`;
+                            }
+                        } else {
+                            if (branches.includes(flag)) {
+                                response = `fatal: A branch named '${flag}' already exists.`;
+                            } else {
+                                setBranches(prev => [...prev, flag]);
                             }
                         }
-                    } 
+                    }
                     else if (subCommand === 'checkout') {
-                        if (branches.includes(branchName)) {
+                        if (args[1] === '-b') {          // was args[0]
+                            const newBranch = args[2];   // was args[1]
+                            if (!newBranch) {
+                                response = `error: switch 'b' requires a value`;
+                            } else if (branches.includes(newBranch)) {
+                                response = `fatal: A branch named '${newBranch}' already exists.`;
+                            } else {
+                                setBranches(prev => [...prev, newBranch]);
+                                setCurrentBranch(newBranch);
+                                response = `Switched to a new branch '${newBranch}'`;
+                            }
+                        } else if (branches.includes(branchName)) {
                             setCurrentBranch(branchName);
                             response = `Switched to branch '${branchName}'`;
                         } else {
