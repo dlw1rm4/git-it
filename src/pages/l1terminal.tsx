@@ -5,12 +5,23 @@ import { useState } from 'react'
 import confetti from 'canvas-confetti'; 
 import { useEffect } from 'react';
 
+type FSFile = {
+    type: 'file';
+    content: string;
+};
+
+type FSFolder = {
+    type: 'folder';
+    children: Record<string, FSFile | FSFolder>;
+};
+
 export default function Lesson1() {
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = useState(0)
     const [terminalInput, setTerminalInput] = useState('');
     const [terminalLines, setTerminalLines] = useState(['Welcome to git-it terminal!', 'Type a command to begin.'])
     const [currentPath, setCurrentPath] = useState(['root']);
+    const [isLoading, setIsLoading] = useState(false);
 
     const pages = [
         {
@@ -39,8 +50,7 @@ export default function Lesson1() {
         }
     ]
 
-    const [fs, setFs] = useState({
-        name: 'root',
+    const [fs, setFs] = useState<FSFolder>({
         type: 'folder',
         children: {
             'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
@@ -58,9 +68,9 @@ export default function Lesson1() {
             let response = '';
             let newLines = [...terminalLines, `> ${input}`];
 
-            let currentDir: any = fs;
+            let currentDir: FSFolder = fs;
             for (const segment of currentPath.slice(1)) {
-                currentDir = currentDir.children[segment];
+                currentDir = currentDir.children[segment] as FSFolder;
             }
 
             switch (command) {
@@ -100,8 +110,8 @@ export default function Lesson1() {
                     if (!target) { response = 'touch: missing filename'; break; }
                     setFs(prev => {
                         const updated = structuredClone(prev);
-                        let dir: any = updated;
-                        for (const s of currentPath.slice(1)) dir = dir.children[s];
+                        let dir: FSFolder = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                         dir.children[target] = { type: 'file', content: '' };
                         return updated;
                     });
@@ -114,8 +124,8 @@ export default function Lesson1() {
                     } else {
                         setFs(prev => {
                             const updated = structuredClone(prev);
-                            let dir: any = updated;
-                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                             delete dir.children[target];
                             return updated;
                         });
@@ -126,8 +136,8 @@ export default function Lesson1() {
                     if (!target) { response = 'mkdir: missing name'; break; }
                     setFs(prev => {
                         const updated = structuredClone(prev);
-                        let dir: any = updated;
-                        for (const s of currentPath.slice(1)) dir = dir.children[s];
+                        let dir: FSFolder = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                         dir.children[target] = { type: 'folder', children: {} };
                         return updated;
                     });
@@ -140,8 +150,8 @@ export default function Lesson1() {
                     } else {
                         setFs(prev => {
                             const updated = structuredClone(prev);
-                            let dir: any = updated;
-                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                             delete dir.children[target];
                             return updated;
                         });
@@ -156,8 +166,8 @@ export default function Lesson1() {
                     } else {
                         setFs(prev => {
                             const updated = structuredClone(prev);
-                            let dir: any = updated;
-                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                             
                             const moving = dir.children[target];
                             const destNode = dir.children[dest];
@@ -183,8 +193,8 @@ export default function Lesson1() {
                         const filename = fullArgs.slice(redirectIndex + 1).trim();
                         setFs(prev => {
                             const updated = structuredClone(prev);
-                            let dir: any = updated;
-                            for (const s of currentPath.slice(1)) dir = dir.children[s];
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
                             dir.children[filename] = { type: 'file', content };
                             return updated;
                         });
@@ -196,13 +206,40 @@ export default function Lesson1() {
                 case 'git':
                     if (args[0] === 'init') {
                         response = 'Initialized empty Git repository in /project/.git/';
+                    } else if (args[0] === 'clone') {
+                        const cloneUrl = args[1];  // fix: use args[1], not target
+                        if (!cloneUrl) {
+                            response = 'usage: git clone <url>';
+                        } else if (!cloneUrl.startsWith('https://github.com/')) {
+                            response = `fatal: repository '${cloneUrl}' does not exist`;
+                        } else {
+                            const repoName = cloneUrl.split('/').pop()?.replace('.git', '') || 'repo';
+                            setFs(prev => {
+                                const updated = structuredClone(prev);
+                                updated.children[repoName] = {
+                                    type: 'folder',
+                                    children: {
+                                        'README.md': { type: 'file', content: `# ${repoName}` }
+                                    }
+                                };
+                                return updated;
+                            });
+                            newLines.push(`Cloning into '${repoName}'...`);
+                            setTerminalLines(newLines);
+                            setTerminalInput('');
+                            setIsLoading(true);
+                            setTimeout(() => {
+                                setTerminalLines(prev => [...prev, 'done.']);
+                                setIsLoading(false);
+                            }, 2000);
+                            return;
+                        }
                     } else if (!args[0]) {
                         response = 'usage: git <command> [<args>]';
                     } else {
                         response = `git: '${args[0]}' is not a git command.`;
                     }
                     break;
-
                 case '':
                     break;
 
@@ -286,7 +323,7 @@ export default function Lesson1() {
                             ))}
                         </div>
                         <div className="terminal-input-line">
-                            <span className="prompt">{'>'}</span>
+                            {!isLoading && <span className="prompt">{'>'}</span>}
                             <input
                                 type="text"
                                 className="terminal-input"
@@ -294,6 +331,7 @@ export default function Lesson1() {
                                 onChange={(e) => setTerminalInput(e.target.value)}
                                 onKeyDown={handleKeyDown}
                                 autoFocus
+                                disabled={isLoading}
                             />
                         </div>
                 </div>
