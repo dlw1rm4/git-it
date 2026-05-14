@@ -34,7 +34,7 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1B: Repository States",
-            text: "Now that you know how to make a repository, you should know the basics of Git repository states.\n\nThere are three main areas:\n- Working directory\n- Staging area\n- Repository\n\nThe working directory is where you actually edit your files.\n\nThe staging area tells us what will be added into your next commit.\n\nThe repository is the permanent history of your code.\n\nFiles can also have different states:\n- Untracked: Git sees it but isn't tracking it yet\n- Staged: added to staging area, ready to commit\n- Committed: safely stored in the repository\n- Modified: tracked file changed since last commit, not yet staged\n- Ignored: explicitly excluded via .gitignore\n\n Don’t worry about how this applies to Git commands yet! We’ll get into it in a future lesson. In the meantime, just keep these in mind."
+            text: "Now that you know how to make a repository, you should know the basics of Git repository states.\n\nThere are three main areas:\n- Working directory\n- Staging area\n- Repository\n\nThe working directory is where you actually edit your files.\n\nThe staging area tells us what will be added into your next commit.\n\nThe repository is the permanent history of your code.\n\nFiles can also have different states:\n- Untracked: Git sees it but isn't tracking it yet\n- Staged: added to staging area, ready to commit\n- Committed: safely stored in the repository\n- Modified: tracked file changed since last commit, not yet staged\n- Ignored — explicitly excluded via .gitignore\n\n Don’t worry about how this applies to Git commands yet! We’ll get into it in a future lesson. In the meantime, just keep these in mind."
         },
         {
             title: "Commit 1C: Terminal Commands Pt. 1",
@@ -46,7 +46,7 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1E: Conclusion",
-            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls\n   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
+            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
         }
     ]
 
