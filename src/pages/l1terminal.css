@@ -189,6 +189,11 @@
     font-family: "Google Sans Code", monospace;
 }
 
+.terminal-input:disabled {
+    opacity: 0;
+    cursor: not-allowed;
+}
+
 .prompt {
     color: #ffffff;
     font-weight: bold;
