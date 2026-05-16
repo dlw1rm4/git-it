@@ -17,7 +17,9 @@ export default function Register() {
             <div className="container">
             <div className="register-container">
                 <div className="register-header">
-                <div className="red-dot"></div>
+                <div className="red-dot-btn">
+                    <button className="red-dot-btn" onClick={() => navigate ('/disclaimer')}></button>
+                </div>
                 <div className="header-text">Sign Up!</div>
                 </div>
                 <div className="register-box">

@@ -17,7 +17,9 @@ export default function Login() {
             <div className="container">
             <div className="login-container">
                 <div className="login-header">
-                <div className="red-dot"></div>
+                <div className="red-dot-btn">
+                    <button className="red-dot-btn" onClick={() => navigate ('/disclaimer')}></button>
+                </div>
                 <div className="header-text">Log in!</div>
                 </div>
                 <div className="login-box">
