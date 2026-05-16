@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import Disclaimer from './pages/disclaimer'
+// import Disclaimer from './pages/disclaimer'
 import Lessons from './pages/lessons'
 import Register from './pages/register'
 import Login from './pages/login'
