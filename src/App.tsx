@@ -5,6 +5,7 @@ import Register from './pages/register'
 import Login from './pages/login'
 import Lesson1 from './pages/l1terminal'
 import Lesson2 from './pages/l2terminal'
+import Lesson3 from './pages/l3terminal'
 import logo from './images/wic-logo.png'
 import './App.css'
 
@@ -39,6 +40,7 @@ export default function App() {
         <Route path = "/login" element={<Login />} />
         <Route path = "/lesson1" element={<Lesson1 />} />
         <Route path = "/lesson2" element={<Lesson2 />} />
+        <Route path = "/lesson3" element={<Lesson3 />} />
       </Routes>
       </>
     )

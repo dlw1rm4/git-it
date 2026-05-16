@@ -30,6 +30,7 @@ const defaultFs: FSFolder = {
     type: 'folder',
     children: {
         'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
+        'lesson3.html': { type: 'file', content: '<h1>Hello from lesson3.html!</h1>' },
         'src': { type: 'folder', children: { 'app.js': { type: 'file', content: 'console.log("Hello Git!");' } } },
         'images': { type: 'folder', children: { 'logo.png': { type: 'file', content: '[Binary Data]' } } }
     }
@@ -317,7 +318,7 @@ export default function Terminal({ allowedCommands, allowedGitSubcommands, showB
                     const lines = [`On branch ${currentBranch}`];
                     if (stagedFiles.length > 0) {
                         lines.push('Changes to be committed:');
-                        stagedFiles.forEach(f => lines.push(`  \x1b[32m staged:   ${f}\x1b[0m`));
+                        stagedFiles.forEach(f => lines.push(`    staged:   ${f}`));
                     }
                     const unstaged = modifiedFiles.filter(f => !stagedFiles.includes(f));
                     if (unstaged.length > 0) {
@@ -635,9 +636,21 @@ export default function Terminal({ allowedCommands, allowedGitSubcommands, showB
     return (
         <div className="terminal">
             <div className="terminal-output" ref={terminalOutputRef}>
-                {terminalLines.map((line, index) => (
-                    <div key={index} className="terminal-line">{line}</div>
-                ))}
+                {terminalLines.flatMap((line, index) =>
+                line.split('\n').map((subline, subIndex) => (
+                    <div
+                        key={`${index}-${subIndex}`}
+                        className="terminal-line"
+                        style={{
+                            color: subline.trim().startsWith('staged:') ? '#4CAF50'
+                                : subline.trim().startsWith('modified:') ? '#E5989B'
+                                : undefined
+                        }}
+                    >
+                        {subline}
+                    </div>
+                ))
+            )}
             </div>
             <div className="terminal-input-line">
                 {!isLoading && (

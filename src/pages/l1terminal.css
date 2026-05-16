@@ -189,6 +189,10 @@
     font-family: "Google Sans Code", monospace;
 }
 
+.terminal-line[style] {
+    color: inherit;
+}
+
 .terminal-input-line {
     display: flex;
     align-items: center;
