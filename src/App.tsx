@@ -6,6 +6,8 @@ import Login from './pages/login'
 import Lesson1 from './pages/l1terminal'
 import Lesson2 from './pages/l2terminal'
 import Lesson3 from './pages/l3terminal'
+import Lesson4 from './pages/l4terminal'
+import Lesson5 from './pages/l5terminal'
 import logo from './images/wic-logo.png'
 import './App.css'
 
@@ -41,6 +43,8 @@ export default function App() {
         <Route path = "/lesson1" element={<Lesson1 />} />
         <Route path = "/lesson2" element={<Lesson2 />} />
         <Route path = "/lesson3" element={<Lesson3 />} />
+        <Route path = "/lesson4" element={<Lesson4 />} />
+        <Route path = "/lesson5" element={<Lesson5 />} />
       </Routes>
       </>
     )

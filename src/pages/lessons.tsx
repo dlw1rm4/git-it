@@ -21,12 +21,12 @@ const lessons = [
     } , {
         id: 4,
         commit: 'Commit 4',
-        title: 'How do I merge to main?',
+        title: 'How do I sync my branch?',
         progress: 0,
     } , {
         id: 5,
         commit: 'Commit 5',
-        title: 'How do I undo changes?',
+        title: 'How can I see history?',
         progress: 0,
     }
 ]
