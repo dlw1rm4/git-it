@@ -5,6 +5,16 @@ import { useState } from 'react'
 import confetti from 'canvas-confetti'; 
 import { useEffect } from 'react';
 
+type FSFile = {
+    type: 'file';
+    content: string;
+};
+
+type FSFolder = {
+    type: 'folder';
+    children: Record<string, FSFile | FSFolder>;
+};
+
 export default function Lesson2() {
     const navigate = useNavigate()
     const [pageIndex, setPageIndex] = useState(0)
@@ -26,7 +36,6 @@ export default function Lesson2() {
         {
             title: "Commit 2B: Seeing Branches",
             text: "But, how can you tell what branch you’re in? All you need to do is type ‘<b>git branch</b>’ in the terminal. The branch that has an asterisk on the left is the one you are currently on.\n\nHowever, just typing ‘git branch’ will only show you <b>local</b> branches. If you want to see both local and remote (which is what GitHub has) branches, add ‘-av’ to the end. So, this would look like ‘git branch -av’.\n\nFor this lesson, we will skip ‘git branch -av,’ so try it on your own in the future!"
-
         },
         {
             title: "Commit 2C: Checkout a Branch",
@@ -42,25 +51,14 @@ export default function Lesson2() {
         }
     ]
 
-    const MOCK_FS = {
-            name: 'root',
+    const [fs, setFs] = useState<FSFolder>({
             type: 'folder',
             children: {
                 'README.md': { type: 'file', content: 'Welcome to the git-it tutorial!' },
-                'src': {
-                type: 'folder',
-                children: {
-                    'app.js': { type: 'file', content: 'console.log("Hello Git!");' }
-                }
-                },
-                'images': {
-                type: 'folder',
-                children: {
-                    'logo.png': { type: 'file', content: '[Binary Data]' }
-                }
-                }
+                'src': { type: 'folder', children: { 'app.js': { type: 'file', content: 'console.log("Hello Git!");' } } },
+                'images': { type: 'folder', children: { 'logo.png': { type: 'file', content: '[Binary Data]' } } }
             }
-        };
+    });
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -71,9 +69,9 @@ export default function Lesson2() {
             let response = '';
             let newLines = [...terminalLines, `> ${input}`];
 
-            let currentDir: any = MOCK_FS;
+            let currentDir: FSFolder = fs;
             for (const segment of currentPath.slice(1)) {
-                currentDir = currentDir.children[segment];
+                currentDir = currentDir.children[segment] as FSFolder;
             }
 
             switch (command) {
@@ -81,7 +79,7 @@ export default function Lesson2() {
                 case 'cls':
                     setTerminalLines([]);
                     setTerminalInput('');
-                    return; 
+                    return;
 
                 case 'ls':
                     response = Object.keys(currentDir.children).join('    ');
@@ -90,9 +88,7 @@ export default function Lesson2() {
                 case 'cd':
                     if (!target || target === '.') break;
                     if (target === '..') {
-                        if (currentPath.length > 1) {
-                            setCurrentPath(prev => prev.slice(0, -1));
-                        }
+                        if (currentPath.length > 1) setCurrentPath(prev => prev.slice(0, -1));
                     } else if (currentDir.children?.[target]?.type === 'folder') {
                         setCurrentPath(prev => [...prev, target]);
                     } else {
@@ -100,7 +96,7 @@ export default function Lesson2() {
                     }
                     break;
 
-                case 'cat':
+                case 'cat': {
                     const file = currentDir.children?.[target];
                     if (file?.type === 'file') {
                         response = file.content;
@@ -110,15 +106,108 @@ export default function Lesson2() {
                         response = `cat: ${target}: No such file`;
                     }
                     break;
+                }
+                case 'touch':
+                    if (!target) { response = 'touch: missing filename'; break; }
+                    setFs(prev => {
+                        const updated = structuredClone(prev);
+                        let dir: FSFolder = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                        dir.children[target] = { type: 'file', content: '' };
+                        return updated;
+                    });
+                    break;
 
+                case 'rm':
+                    if (!target) { response = 'rm: missing filename'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `rm: ${target}: No such file`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+
+                case 'mkdir':
+                    if (!target) { response = 'mkdir: missing name'; break; }
+                    setFs(prev => {
+                        const updated = structuredClone(prev);
+                        let dir: FSFolder = updated;
+                        for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                        dir.children[target] = { type: 'folder', children: {} };
+                        return updated;
+                    });
+                    break;
+
+                case 'rmdir':
+                    if (!target) { response = 'rmdir: missing name'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `rmdir: ${target}: No such directory`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+
+                case 'mv': {
+                    const dest = args[1];
+                    if (!target || !dest) { response = 'mv: missing operand'; break; }
+                    if (!currentDir.children?.[target]) {
+                        response = `mv: ${target}: No such file or directory`;
+                    } else {
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                            
+                            const moving = dir.children[target];
+                            const destNode = dir.children[dest];
+                            
+                            if (destNode?.type === 'folder') {
+                                // move INTO the folder, keep original name
+                                destNode.children[target] = moving;
+                            } else {
+                                // rename
+                                dir.children[dest] = moving;
+                            }
+                            delete dir.children[target];
+                            return updated;
+                        });
+                    }
+                    break;
+                }
+                case 'echo':
+                    const fullArgs = args.join(' ');
+                    const redirectIndex = fullArgs.indexOf('>');
+                    if (redirectIndex !== -1) {
+                        const content = fullArgs.slice(0, redirectIndex).trim().replace(/^"|"$/g, '');
+                        const filename = fullArgs.slice(redirectIndex + 1).trim();
+                        setFs(prev => {
+                            const updated = structuredClone(prev);
+                            let dir: FSFolder = updated;
+                            for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
+                            dir.children[filename] = { type: 'file', content };
+                            return updated;
+                        });
+                    } else {
+                        response = fullArgs.replace(/^"|"$/g, '');
+                    }
+                    break;
                 case 'git':
                     const subCommand = args[0];
                     const branchName = args[1];
 
-                    if (subCommand === 'init') {
-                        response = 'Initialized empty Git repository in /project/.git/';
-                    } 
-                    else if (subCommand === 'branch') {
+                    if (subCommand === 'branch') {
                         const flag = args[1];       
                         const targetBranch = args[2]; 
 
@@ -142,6 +231,7 @@ export default function Lesson2() {
                                 response = `fatal: A branch named '${flag}' already exists.`;
                             } else {
                                 setBranches(prev => [...prev, flag]);
+                                response = `Successfully created branch ${flag}`;
                             }
                         }
                     }
