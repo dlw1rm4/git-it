@@ -288,11 +288,12 @@ export default function Terminal({ allowedCommands, allowedGitSubcommands, showB
 
                 // ── git init ──────────────────────────────────────────────
                 if (subCommand === 'init') {
-                    if (!gitInitialized) {
-                        return "Run git init first!";
+                    if (gitInitialized) {
+                        response = 'Reinitialized existing Git repository in /project/.git/';
+                    } else {
+                        setGitInitialized(true);
+                        response = 'Initialized empty Git repository in /project/.git/';
                     }
-                    setGitInitialized(true);
-                    response = 'Initialized empty Git repository in /project/.git/';
                 }
 
                 // ── git clone ─────────────────────────────────────────────
