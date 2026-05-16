@@ -15,7 +15,7 @@ export default function Disclaimer() {
           <div className="pop-up-box-container">
             <div className="pop-up-box-header">
               <div className="red-dot-btn">
-                  <button className="red-dot-btn" onClick={() => navigate ('/lessons')}></button>
+                  <button className="red-dot-btn" onClick={() => navigate ('/')}></button>
               </div>
               <div className="header-text">Wait!</div>
             </div>

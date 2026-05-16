@@ -76,6 +76,7 @@
     align-self: center;
     opacity: 0;
     animation: fadeIn 0.5s ease forwards;
+    padding-top: 30px;
 }
 
 .lesson-card
