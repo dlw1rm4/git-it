@@ -89,7 +89,7 @@ export default function Lesson3() {
                         </div>
                     </div>
                     <Terminal
-                        allowedCommands={['clear', 'cls', 'ls', 'cd', 'cat', 'git']}
+                        allowedCommands={['clear', 'cls', 'ls', 'cd', 'cat', 'git', 'touch', 'mkdir', 'rmdir', 'rm', 'mv', 'echo']}
                         allowedGitSubcommands={['status', 'add', 'commit', 'push', 'checkout', 'restore', 'reset', 'revert']}
                         showBranch={true}
                     />
