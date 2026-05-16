@@ -36,7 +36,7 @@ export default function App() {
           <button onClick={() => navigate ('/disclaimer')}>start</button>
         </div>
         } />
-        <Route path = "/disclaimer" element={<Disclaimer />} />
+        <Route path = "/disclaimer" element={<Lessons />} />
         <Route path = "/lessons" element={<Lessons />} />
         <Route path = "/register" element={<Register />} />
         <Route path = "/login" element={<Login />} />
