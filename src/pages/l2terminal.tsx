@@ -186,7 +186,7 @@ export default function Lesson2() {
                     }
                     break;
                 }
-                case 'echo':
+                case 'echo': {
                     const fullArgs = args.join(' ');
                     const redirectIndex = fullArgs.indexOf('>');
                     if (redirectIndex !== -1) {
@@ -203,7 +203,8 @@ export default function Lesson2() {
                         response = fullArgs.replace(/^"|"$/g, '');
                     }
                     break;
-                case 'git':
+                }
+                case 'git': {
                     const subCommand = args[0];
                     const branchName = args[1];
 
@@ -258,6 +259,7 @@ export default function Lesson2() {
                         response = `git: '${subCommand}' is not a git command.`;
                     }
                     break;
+                }
                 case '':
                     break;
 

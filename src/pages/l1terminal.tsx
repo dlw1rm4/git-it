@@ -30,7 +30,7 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1A: Create a Repository",
-            text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type '<b>git init</b>' in the terminal.\n\nOnce you see \"Initialized empty Git repository in /project/.git/\" you’ll know you successfully created a local repository.\n\nBut, what does the word ‘local’ mean? It just means the data only exists on your device! So, the repository you created in the terminal only exists on your end.\n\nLet’s try another way of creating a repository. What if you created a repository on GitHub and want to access it through an IDE like VS Code?\n\nThis is a really simple process. If you go to your repository and find the green button that says ‘Code.’ Click on it, and grab the HTTPS link. Once you copy that link, write ‘<b>git clone &lt;url&gt;</b>’ in the terminal.\n\n<b>NOTE:</b> In this tutorial, anything inside &lt; and &gt; means you replace it with your own value. For example, &lt;url&gt; should be replaced with the actual HTTPS link you copied from GitHub. It'll look something like: https://github.com/username/repo.git\n\nOnce you reach this point, congrats! You’ve successfully created a repository."
+            text: "Let's start with something simple. A repository is a place where we store our project's code and history. We'll try creating a repository locally using the terminal on the right.\n\nTo do this, type '<b>git init</b>' in the terminal.\n\nOnce you see \"Initialized empty Git repository in /project/.git/\" you’ll know you successfully created a local repository.\n\nBut, what does the word ‘local’ mean? It just means the data only exists on your device! So, the repository you created in the terminal only exists on your end.\n\nLet’s try another way of creating a repository. What if you created a repository on GitHub and want to access it through an Integrated Development Environment (IDE) like VS Code?\n\nThis is a really simple process. If you go to your GitHub repository and find the green button that says ‘Code.’ Click on it, and grab the HTTPS link. Once you copy that link, write ‘<b>git clone &lt;url&gt;</b>’ in the terminal.\n\n<b>NOTE:</b> In this tutorial, anything inside &lt; and &gt; means you replace it with your own value. For example, &lt;url&gt; should be replaced with the actual HTTPS link you copied from GitHub. It'll look something like: https://github.com/username/repo.git\n\nOnce you reach this point, congrats! You’ve successfully created a repository."
         },
         {
             title: "Commit 1B: Repository States",
@@ -46,7 +46,7 @@ export default function Lesson1() {
         },
         {
             title: "Commit 1E: Conclusion",
-            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
+            text: "Congratulations! You finished your first lesson. Here’s a summary of what you should have by now:\n- Basic understanding of Git\n- Repository states\n- Creating a repository\n   - git init\n   - git clone\n- 10 terminal commands:\n   - clear\n   - ls\n   - cd\n   - cat\n   - touch\n   - echo\n   - mv\n   - rm\n   - mkdir\n   - rmdir\n\nOnce you reach this point, congrats! You're done with your first lesson. Click 'FINISH' to move on!"
         }
     ]
 
@@ -95,7 +95,7 @@ export default function Lesson1() {
                     }
                     break;
 
-                case 'cat':
+                case 'cat': {
                     const file = currentDir.children?.[target];
                     if (file?.type === 'file') {
                         response = file.content;
@@ -105,7 +105,7 @@ export default function Lesson1() {
                         response = `cat: ${target}: No such file`;
                     }
                     break;
-
+                }
                 case 'touch':
                     if (!target) { response = 'touch: missing filename'; break; }
                     setFs(prev => {
@@ -159,8 +159,9 @@ export default function Lesson1() {
                     break;
 
                 case 'mv': {
-                    const dest = args[1];
+                    const dest = args[1]?.trim();
                     if (!target || !dest) { response = 'mv: missing operand'; break; }
+                    if (target === dest) { response = `mv: '${target}' and '${dest}' are the same`; break; }
                     if (!currentDir.children?.[target]) {
                         response = `mv: ${target}: No such file or directory`;
                     } else {
@@ -168,24 +169,23 @@ export default function Lesson1() {
                             const updated = structuredClone(prev);
                             let dir: FSFolder = updated;
                             for (const s of currentPath.slice(1)) dir = dir.children[s] as FSFolder;
-                            
+
                             const moving = dir.children[target];
                             const destNode = dir.children[dest];
-                            
+
                             if (destNode?.type === 'folder') {
-                                // move INTO the folder, keep original name
                                 destNode.children[target] = moving;
                             } else {
-                                // rename
                                 dir.children[dest] = moving;
                             }
                             delete dir.children[target];
                             return updated;
                         });
+                        response = `moved '${target}' to '${dest}'`;
                     }
                     break;
                 }
-                case 'echo':
+                case 'echo': {
                     const fullArgs = args.join(' ');
                     const redirectIndex = fullArgs.indexOf('>');
                     if (redirectIndex !== -1) {
@@ -202,8 +202,8 @@ export default function Lesson1() {
                         response = fullArgs.replace(/^"|"$/g, '');
                     }
                     break;
-
-                case 'git':
+                }
+                case 'git': {
                     if (args[0] === 'init') {
                         response = 'Initialized empty Git repository in /project/.git/';
                     } else if (args[0] === 'clone') {
@@ -214,16 +214,6 @@ export default function Lesson1() {
                             response = `fatal: repository '${cloneUrl}' does not exist`;
                         } else {
                             const repoName = cloneUrl.split('/').pop()?.replace('.git', '') || 'repo';
-                            setFs(prev => {
-                                const updated = structuredClone(prev);
-                                updated.children[repoName] = {
-                                    type: 'folder',
-                                    children: {
-                                        'README.md': { type: 'file', content: `# ${repoName}` }
-                                    }
-                                };
-                                return updated;
-                            });
                             newLines.push(`Cloning into '${repoName}'...`);
                             setTerminalLines(newLines);
                             setTerminalInput('');
@@ -240,6 +230,7 @@ export default function Lesson1() {
                         response = `git: '${args[0]}' is not a git command.`;
                     }
                     break;
+                }
                 case '':
                     break;
 
@@ -285,6 +276,11 @@ export default function Lesson1() {
             scrollContainer.scrollTo(0, 0);
         }
     }, [pageIndex]);
+
+    useEffect(() => {
+        const output = document.querySelector('.terminal-output');
+        if (output) output.scrollTop = output.scrollHeight;
+    }, [terminalLines]);
 
     return(
         <div className="l1-terminal-page">
