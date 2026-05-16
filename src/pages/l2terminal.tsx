@@ -303,6 +303,10 @@ export default function Lesson2() {
             scrollContainer.scrollTo(0, 0);
         }
     }, [pageIndex]);
+    useEffect(() => {
+        const output = document.querySelector('.terminal-output');
+        if (output) output.scrollTop = output.scrollHeight;
+    }, [terminalLines]);
 
     return(
         <div className="l1-terminal-page">
