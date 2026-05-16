@@ -22,10 +22,10 @@ export default function Disclaimer() {
             <div className="pop-up-box">
               <div className="box-text">Would you like to create an account to save your progress? (If you don't, you will lose your progress!)</div>
               <div className="button-group">
-                <button className="btn-sure" onClick={() => navigate ('/register')}>Sure!</button>
+                <button className="btn-sure" onClick={() => navigate ('/lessons')}>Sure!</button>
                 <button className="btn-nah" onClick={() => navigate ('/lessons')}>Nah, we ball.</button>
               </div>
-              <div className="login-link" onClick={() => navigate('/login')}>I already have an account.</div>
+              <div className="login-link" onClick={() => navigate('/lessons')}>I already have an account.</div>
             </div>
           </div>
         </div>
