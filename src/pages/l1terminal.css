@@ -145,18 +145,39 @@
     width: 50%;
     height: calc(100% - 55px);
     background-color: #1E1E1E;
-    z-index: 1; 
-
-    /* FORCING LEFT ALIGNMENT */
+    z-index: 1;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;  
+    align-items: flex-start !important;
     justify-content: flex-start !important;
-    
-    padding: 20px;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow: hidden;
     font-family: "Google Sans Code", monospace;
+}
+
+.terminal-output {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    width: 100%;
+    padding: 20px 20px 0 20px;
+}
+
+.terminal-output::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terminal-output::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terminal-output::-webkit-scrollbar-thumb {
+    background: #444444;
+    border-radius: 10px;
+}
+
+.terminal-output::-webkit-scrollbar-thumb:hover {
+    background: #666666;
 }
 
 .terminal-line {
@@ -173,6 +194,7 @@
     align-items: center;
     width: 100%;
     background: transparent;
+    padding: 8px 20px 20px 20px;
     font-family: "Google Sans Code", monospace;
 }
 
